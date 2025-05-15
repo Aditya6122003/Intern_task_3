@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatNova - AI Chatbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            background: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .chat-box {
+            height: 450px;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #111;
+        }
+        .message {
+            padding: 12px 15px;
+            border-radius: 15px;
+            max-width: 75%;
+            font-size: 14px;
+            line-height: 1.5;
+            display: inline-block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
+        .bot-message {
+            background: #333;
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background: #222;
+            border-top: 1px solid #333;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            background: #333;
+            color: white;
+            font-size: 14px;
+        }
+        .input-container button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: 0.3s;
+        }
+        .input-container button:hover {
+            background: #0056b3;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">ChatNova - AI Chatbot</div>
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <script>
+        const predefinedResponses = {
+            "how are you": "I'm good, thanks for asking! How about you?",
+            "what’s your name": "I'm ChatNova, your AI assistant.",
+            "tell me a joke": "Why don’t skeletons fight each other? Because they don’t have the guts!",
+            "what can you do": "I can answer your questions, chat with you, and even tell jokes!",
+            "who is virat kohli": "Virat Kohli is an Indian cricketer and former captain of the Indian national team.",
+            "what is the capital of france": "The capital of France is Paris.",
+            "who is the prime minister of india": "The current Prime Minister of India is Narendra Modi (as of 2024).",
+            "what is python": "Python is a high-level programming language known for its simplicity and readability.",
+            "who discovered gravity": "Gravity was discovered by Sir Isaac Newton.",
+            "how’s the weather today": "I'm not connected to real-time weather updates, but you can check on a weather website!",
+            "do you like music": "I don’t have personal preferences, but I can talk about music if you’d like!",
+            "what is your favorite color": "I like all colors, but blue seems to be quite popular!",
+            "tell me a fun fact": "Did you know that honey never spoils? Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still edible!",
+            "can you dance": "I would if I had legs! But I can surely keep you entertained.",
+            "do you believe in aliens": "The universe is vast, so who knows? Maybe there’s life out there!"
+        };
+
+        function sendMessage() {
+            let userInput = document.getElementById("userInput").value.trim().toLowerCase();
+            if (userInput === "") return;
+            
+            let chatBox = document.getElementById("chatBox");
+            let userMessage = `<div class='message user-message'>${userInput}</div>`;
+            chatBox.innerHTML += userMessage;
+            document.getElementById("userInput").value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+            
+            setTimeout(() => {
+                let botResponse = predefinedResponses[userInput] || "I'm not sure about that, but I'm always learning!";
+                let botMessage = `<div class='message bot-message'>${botResponse}</div>`;
+                chatBox.innerHTML += botMessage;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
